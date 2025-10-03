@@ -1,0 +1,7 @@
+.{
+    .name = .RSGL,
+    .version = "0.0.1",
+    .minimum_zig_version = "0.15.1",
+    .paths = .{"build.zig", "build.zig.zon", "root.zig", "RSGL.h", "renderers"},
+    .fingerprint = 0xeee85ca523565f61,
+}
