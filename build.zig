@@ -40,24 +40,26 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
         .link_libc = true,
-        .root_source_file = b.path("root.zig")
+        .root_source_file = b.path("root.zig"),
     });
 
     mod.addImport("rsgl_gl", rsgl_gl);
     mod.addImport("rsgl_gl1", rsgl_gl1);
 
+    rsgl_gl.addIncludePath(b.path("."));
+    rsgl_gl1.addIncludePath(b.path("."));
     mod.addIncludePath(b.path("."));
-    
+
     switch (target.result.os.tag) {
         .linux, .freebsd, .openbsd, .dragonfly => {
-            mod.linkSystemLibrary("GL", .{.needed = true});
+            mod.linkSystemLibrary("GL", .{ .needed = true });
         },
         .macos => {
-            mod.linkFramework("OpenGL", .{.needed = true});
+            mod.linkFramework("OpenGL", .{ .needed = true });
         },
         .windows => {
-            mod.linkSystemLibrary("opengl32", .{.needed = true});
+            mod.linkSystemLibrary("opengl32", .{ .needed = true });
         },
-        else => {}
+        else => {},
     }
 }
